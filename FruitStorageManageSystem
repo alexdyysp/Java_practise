@@ -1,0 +1,108 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+public  class market_storage_manage {
+    static class FruitItem{
+        int ID;
+        String name;
+        double price;
+        double number;
+        double money;
+    }
+    public static void init(ArrayList<FruitItem> list) {
+        FruitItem item = new FruitItem();
+        item.name="hetao";
+        item.ID=9001;
+        item.price=1200;
+        list.add(item);
+    }
+    public static void mainMenu(){
+        System.out.println("------welcome------");
+        System.out.println("1:check the No. of goods  2:insert new goods   3:delete goods    4:revise goods");
+        System.out.println("5:quit the system");
+    }
+    public static void chooseFunction(ArrayList<FruitItem> list){
+        System.out.println("please input Function NO.:");
+        Scanner sc = new Scanner(System.in);
+        String choose = sc.next();
+        switch(choose){
+            case"1":
+                showFruitList(list);
+                break;
+            case"2":
+                addFruitList(list);
+                break;
+            case"3":
+                delFruitList(list);
+                break;
+            case"4":
+                updateFruitItem(list);
+                break;
+            case"5":
+                System.out.println("exit system");
+                return;
+            default:
+                System.out.println("sorry,no this function,choose again");
+                break;
+        }
+    }
+    public static void showFruitList(ArrayList<FruitItem> list){
+        System.out.println("============库存清单===============");
+        System.out.println("NO.\tName\t\tPrice");
+        for(int i=0;i<list.size();i++){
+            FruitItem item = list.get(i);
+            System.out.println(item.ID+"\t"+item.name+"\t"+item.price);
+        }
+    }
+    public static void addFruitList(ArrayList<FruitItem> list){
+        FruitItem newItem = new FruitItem();
+        Scanner sc = new Scanner(System.in);
+        System.out.print("please input fruit name:");
+        newItem.name=sc.next();
+        System.out.print("please input fruit ID:");
+        newItem.ID=sc.nextInt();
+        System.out.print("please input fruit Price:");
+        newItem.price=sc.nextDouble();
+        list.add(newItem);
+    }
+    public static void delFruitList(ArrayList<FruitItem> list){
+        System.out.print("please iput the ID you want to delete");
+        Scanner sc = new Scanner(System.in);
+        int fruitID = sc.nextInt();
+        for(int i=0;i<list.size();i++){
+            FruitItem thisItem=list.get(i);
+            if(thisItem.ID==fruitID){
+                list.remove(thisItem);
+                System.out.println("delete over");
+                return;
+            }
+        }
+        System.out.println("sorry,no fruit ID");
+    }
+    public static void updateFruitItem(ArrayList<FruitItem> list){
+        System.out.println();
+        System.out.print("please input fruit ID:");
+        Scanner sc = new Scanner(System.in);
+        int fruitID = sc.nextInt();
+        for(int i=0;i<list.size();i++){
+            FruitItem thisItem=list.get(i);
+            if(thisItem.ID==fruitID){
+                System.out.print("please input fruit ID:");
+                thisItem.ID=sc.nextInt();
+                System.out.print("please input fruit name:");
+                thisItem.name=sc.next();
+                System.out.print("please input fruit price:");
+                thisItem.price=sc.nextDouble();
+                System.out.print("update over:");
+            }
+        }
+        System.out.print("sorry,no fruit ID:");
+    }
+    public static void main(String[] args){
+        ArrayList<FruitItem> list = new ArrayList<FruitItem>();
+        init(list);
+        while(true){
+            mainMenu();
+            chooseFunction(list);
+        }
+    }
+}
